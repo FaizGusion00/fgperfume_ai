@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FGPAiLogo } from './icons';
 import { Button } from './ui/button';
-import { User, Shield } from 'lucide-react';
+import { Shield } from 'lucide-react';
 import { ThemeToggle } from './theme-toggle';
 
 export default function Header() {
@@ -21,16 +21,10 @@ export default function Header() {
         </div>
         <div className="flex flex-1 items-center justify-end space-x-2">
             <nav className="flex items-center gap-2">
-                <Link href="/" passHref>
-                    <Button variant={!isAdminPage ? "secondary" : "ghost"} size="sm" className="flex items-center gap-2">
-                        <User className="h-4 w-4" />
-                        <span className="hidden sm:inline">User View</span>
-                    </Button>
-                </Link>
                  <Link href="/admin" passHref>
-                    <Button variant={isAdminPage ? "secondary" : "ghost"} size="sm" className="flex items-center gap-2">
+                    <Button variant={isAdminPage ? "secondary" : "ghost"} size="icon" className="flex items-center gap-2">
                        <Shield className="h-4 w-4" />
-                       <span className="hidden sm:inline">Admin Panel</span>
+                       <span className="sr-only">Admin Panel</span>
                     </Button>
                 </Link>
                 <ThemeToggle />
