@@ -5,8 +5,15 @@ import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 
 export default async function AdminDashboard() {
-  const perfumes = await getPerfumes(true);
-  const queries = await getLoggedQueries();
+  const [perfumes, queries] = await Promise.all([
+    getPerfumes(true),
+    getLoggedQueries()
+  ]);
+
+  const totalPerfumes = perfumes.length;
+  const totalQueries = queries.length;
+  const visiblePerfumes = perfumes.filter(p => p.isVisible).length;
+  const highestPrice = Math.max(...perfumes.map(p => p.price), 0);
 
   return (
     <div className="container mx-auto py-8">
@@ -20,7 +27,7 @@ export default async function AdminDashboard() {
             <Package className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{perfumes.length}</div>
+            <div className="text-2xl font-bold">{totalPerfumes}</div>
             <p className="text-xs text-muted-foreground">
               Across all visibility settings
             </p>
@@ -34,7 +41,7 @@ export default async function AdminDashboard() {
             <MessageSquare className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{queries.length}</div>
+            <div className="text-2xl font-bold">{totalQueries}</div>
             <p className="text-xs text-muted-foreground">
               Total user questions recorded
             </p>
@@ -48,7 +55,7 @@ export default async function AdminDashboard() {
             <Package className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{perfumes.filter(p => p.isVisible).length}</div>
+            <div className="text-2xl font-bold">{visiblePerfumes}</div>
             <p className="text-xs text-muted-foreground">
               Currently shown to users
             </p>
@@ -62,7 +69,7 @@ export default async function AdminDashboard() {
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">${Math.max(...perfumes.map(p => p.price), 0)}</div>
+            <div className="text-2xl font-bold">${highestPrice}</div>
             <p className="text-xs text-muted-foreground">
               Peak price point in collection
             </p>

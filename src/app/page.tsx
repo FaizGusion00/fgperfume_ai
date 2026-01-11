@@ -1,5 +1,32 @@
-import AIChatConcierge from '@/components/ai-chat-concierge';
+'use client';
+
+import dynamic from 'next/dynamic';
 import Header from '@/components/header';
+import { Skeleton } from '@/components/ui/skeleton';
+
+const AIChatConcierge = dynamic(() => import('@/components/ai-chat-concierge'), {
+  ssr: false,
+  loading: () => <AIChatSkeleton />,
+});
+
+const AIChatSkeleton = () => (
+    <div className="w-full h-full flex flex-col shadow-2xl rounded-lg border-accent/20 bg-background/50 backdrop-blur-xl">
+        <div className="p-4 border-b border-border/50">
+            <Skeleton className="h-6 w-1/2" />
+        </div>
+        <div className="flex-grow p-6 space-y-4">
+            <div className="flex items-start gap-3 justify-start">
+                <Skeleton className="w-8 h-8 rounded-full" />
+                <Skeleton className="h-10 w-3/4 rounded-lg" />
+            </div>
+        </div>
+        <div className="p-4 border-t border-border/50 flex items-center gap-2">
+            <Skeleton className="h-10 flex-grow" />
+            <Skeleton className="h-10 w-10" />
+        </div>
+    </div>
+);
+
 
 export default function Home() {
   return (
