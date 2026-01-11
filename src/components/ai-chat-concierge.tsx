@@ -79,51 +79,58 @@ export default function AIChatConcierge() {
   );
 
   return (
-    <Card className="w-full h-full flex flex-col shadow-2xl rounded-lg border-accent/20 bg-card/80 backdrop-blur-sm">
+    <Card className="w-full h-full flex flex-col shadow-2xl rounded-lg border-accent/20 bg-background/50 backdrop-blur-xl">
       <CardHeader className="border-b border-border/50">
-        <CardTitle className="flex items-center gap-2 font-headline text-xl text-amber-400">
-          <Sparkles className="h-5 w-5 text-amber-400" />
+        <CardTitle className="flex items-center gap-2 font-headline text-xl text-accent">
+          <Sparkles className="h-5 w-5 text-accent" />
           AI Concierge
         </CardTitle>
       </CardHeader>
       <CardContent className="flex-grow p-0 flex flex-col min-h-0">
         <ScrollArea className="flex-grow" viewportRef={scrollViewportRef}>
-          <div className="p-4 md:p-6 space-y-6">
+          <div className="p-4 md:p-6 space-y-4">
             {messages.map((message) => (
               <div
                 key={message.id}
                 className={cn(
-                  'flex items-start gap-3',
+                  'flex items-start gap-3 animate-fade-in-up',
                   message.role === 'user' ? 'justify-end' : 'justify-start'
                 )}
               >
                 {message.role === 'assistant' && (
-                  <Avatar className="w-8 h-8">
-                    <AvatarFallback className="bg-primary text-primary-foreground">
-                      <Sparkles className="h-4 w-4 text-amber-300" />
+                  <Avatar className="w-8 h-8 border border-accent/50">
+                    <AvatarFallback className="bg-accent/20 text-accent">
+                      <Sparkles className="h-4 w-4" />
                     </AvatarFallback>
                   </Avatar>
                 )}
                 <div
                   className={cn(
-                    'max-w-[80%] rounded-lg px-4 py-2 text-sm whitespace-pre-wrap shadow-md',
+                    'max-w-[85%] rounded-lg px-4 py-2 text-sm whitespace-pre-wrap shadow-md',
                     message.role === 'user'
-                      ? 'bg-amber-500 text-black'
-                      : 'bg-secondary text-secondary-foreground'
+                      ? 'bg-accent text-accent-foreground rounded-br-none'
+                      : 'bg-secondary text-secondary-foreground rounded-bl-none'
                   )}
                 >
                   {message.content}
                 </div>
+                 {message.role === 'user' && (
+                  <Avatar className="w-8 h-8 border border-border">
+                    <AvatarFallback className="bg-muted text-muted-foreground">
+                      U
+                    </AvatarFallback>
+                  </Avatar>
+                )}
               </div>
             ))}
             {isPending && (
-              <div className="flex items-start gap-3 justify-start">
-                <Avatar className="w-8 h-8">
-                   <AvatarFallback className="bg-primary text-primary-foreground">
-                      <Sparkles className="h-4 w-4 text-amber-300" />
+              <div className="flex items-start gap-3 justify-start animate-fade-in-up">
+                <Avatar className="w-8 h-8 border border-accent/50">
+                   <AvatarFallback className="bg-accent/20 text-accent">
+                      <Sparkles className="h-4 w-4" />
                     </AvatarFallback>
                 </Avatar>
-                <div className="bg-secondary rounded-lg shadow-md">
+                <div className="bg-secondary rounded-lg shadow-md rounded-bl-none">
                     <TypingIndicator />
                 </div>
               </div>
@@ -138,11 +145,11 @@ export default function AIChatConcierge() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask about our fragrances..."
-            className="flex-grow"
+            className="flex-grow bg-secondary/50 focus-visible:ring-accent"
             disabled={isPending}
             autoComplete="off"
           />
-          <Button type="submit" size="icon" disabled={isPending || !input.trim()} variant="outline" className="border-amber-400 text-amber-400 hover:bg-amber-400 hover:text-black">
+          <Button type="submit" size="icon" disabled={isPending || !input.trim()} variant="outline" className="border-accent text-accent hover:bg-accent hover:text-accent-foreground">
             <Send className="h-4 w-4" />
             <span className="sr-only">Send</span>
           </Button>

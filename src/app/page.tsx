@@ -1,31 +1,12 @@
-import Image from 'next/image';
 import AIChatConcierge from '@/components/ai-chat-concierge';
-import {PlaceHolderImages} from '@/lib/placeholder-images';
 import Header from '@/components/header';
 
 export default function Home() {
-  const heroImage = PlaceHolderImages.find(p => p.id === 'hero-perfume');
-
   return (
-    <div className="flex flex-col min-h-screen bg-background">
+    <div className="flex flex-col min-h-screen animated-gradient">
       <Header />
-      <main className="flex-grow grid grid-rows-[auto,1fr] p-4 md:p-8 relative">
-        <div className="absolute inset-0 w-full h-full z-0">
-          {heroImage && (
-            <Image
-              src={heroImage.imageUrl}
-              alt={heroImage.description}
-              fill
-              style={{ objectFit: 'cover' }}
-              className="opacity-10"
-              priority
-              data-ai-hint={heroImage.imageHint}
-            />
-          )}
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent"></div>
-        </div>
-
-        <div className="w-full max-w-4xl mx-auto flex flex-col items-center text-center relative z-10">
+      <main className="flex-grow container mx-auto px-4 py-8 flex flex-col items-center justify-center">
+        <div className="w-full max-w-4xl mx-auto flex flex-col items-center text-center relative z-10 animate-fade-in-up">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold font-headline tracking-tight text-foreground">
             FGPerfume
           </h1>
@@ -34,7 +15,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="w-full max-w-3xl mx-auto mt-8 z-10 flex flex-col min-h-0">
+        <div className="w-full max-w-3xl mx-auto mt-8 z-10 flex flex-col flex-grow min-h-0">
           <AIChatConcierge />
         </div>
       </main>
