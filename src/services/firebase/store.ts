@@ -86,16 +86,3 @@ export const deletePerfume = async (id: string): Promise<boolean> => {
   }
   return Promise.resolve(false);
 };
-
-export const store = {
-  getBrandInfo,
-  getPerfumes,
-  getPerfumeById,
-  getKnowledgeBaseAsString,
-  getLoggedQueries,
-  saveUserQuery,
-  updateBrandInfo,
-  addPerfume,
-  updatePerfume,
-  deletePerfume
-}
