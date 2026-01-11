@@ -28,7 +28,7 @@ export default function AdminLayout({
 
 
   if (pathname === '/admin/login') {
-    return <div className="dark">{children}</div>;
+    return <>{children}</>;
   }
   
   if (!isAuthenticated()) {
@@ -36,7 +36,7 @@ export default function AdminLayout({
   }
 
   return (
-    <div className="dark">
+    <>
       <div className="min-h-screen w-full bg-background text-foreground">
         <Header />
         <div className="flex">
@@ -46,6 +46,6 @@ export default function AdminLayout({
           </main>
         </div>
       </div>
-    </div>
+    </>
   )
 }
