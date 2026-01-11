@@ -1,4 +1,4 @@
-import { getContactInfo } from "@/services/firebase/store";
+import { getContactInfo } from "@/services/mysql/store";
 import { ContactForm } from "@/components/admin/contact-form";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 

@@ -19,8 +19,9 @@ export default function AdminSidebar() {
 
   return (
     <aside className="w-64 flex-shrink-0 border-r border-sidebar-border bg-sidebar-background p-4 hidden md:flex flex-col">
-       <div className="flex items-center justify-center h-10 mb-4">
-        {/* Logo is in the main header, so it's removed from here to avoid duplication */}
+       <div className="flex flex-col items-center justify-center mb-4">
+        {/* Logo is shown in the main header; sidebar should only show the role label */}
+        <div className="text-lg font-semibold text-sidebar-foreground">Admin</div>
       </div>
       <Separator className="mb-4 bg-sidebar-border" />
       <nav className="flex flex-col space-y-2">

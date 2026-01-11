@@ -1,7 +1,7 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { addPerfume, updatePerfume, deletePerfume, updateBrandInfo, updateContactInfo } from '@/services/firebase/store';
+import { addPerfume, updatePerfume, deletePerfume, updateBrandInfo, updateContactInfo } from '@/services/mysql/store';
 import { z } from 'zod';
 import type { BrandInfo, ContactInfo, Perfume } from '@/lib/mock-data';
 
@@ -40,10 +40,14 @@ export async function addPerfumeAction(formData: FormData) {
     return { success: false, error: parsed.error.flatten().fieldErrors };
   }
 
-  await addPerfume(parsed.data as Omit<Perfume, 'id'>);
-  revalidatePath('/admin/perfumes');
-  revalidatePath('/');
-  return { success: true };
+  try {
+    await addPerfume(parsed.data as Omit<Perfume, 'id'>);
+    revalidatePath('/admin/perfumes');
+    revalidatePath('/');
+    return { success: true };
+  } catch (err: any) {
+    return { success: false, error: String(err?.message || err) };
+  }
 }
 
 export async function updatePerfumeAction(id: string, formData: FormData) {
@@ -57,16 +61,25 @@ export async function updatePerfumeAction(id: string, formData: FormData) {
     return { success: false, error: parsed.error.flatten().fieldErrors };
   }
 
-  await updatePerfume(id, parsed.data);
-  revalidatePath('/admin/perfumes');
-  revalidatePath('/');
-  return { success: true };
+  try {
+    await updatePerfume(id, parsed.data);
+    revalidatePath('/admin/perfumes');
+    revalidatePath('/');
+    return { success: true };
+  } catch (err: any) {
+    return { success: false, error: String(err?.message || err) };
+  }
 }
 
 export async function deletePerfumeAction(id: string) {
-  await deletePerfume(id);
-  revalidatePath('/admin/perfumes');
-  revalidatePath('/');
+  try {
+    await deletePerfume(id);
+    revalidatePath('/admin/perfumes');
+    revalidatePath('/');
+    return { success: true };
+  } catch (err: any) {
+    return { success: false, error: String(err?.message || err) };
+  }
 }
 
 // --- Brand Info Actions ---
@@ -84,10 +97,14 @@ export async function updateBrandInfoAction(formData: FormData) {
         return { success: false, error: parsed.error.flatten().fieldErrors };
     }
 
-    await updateBrandInfo(parsed.data as BrandInfo);
-    revalidatePath('/admin/brand');
-    revalidatePath('/');
-    return { success: true };
+    try {
+      await updateBrandInfo(parsed.data as BrandInfo);
+      revalidatePath('/admin/brand');
+      revalidatePath('/');
+      return { success: true };
+    } catch (err: any) {
+      return { success: false, error: String(err?.message || err) };
+    }
 }
 
 // --- Contact Info Actions ---
@@ -127,8 +144,12 @@ export async function updateContactInfoAction(formData: FormData) {
         }
     }
 
-    await updateContactInfo(contactData);
-    revalidatePath('/admin/contact');
-    revalidatePath('/');
-    return { success: true };
+    try {
+      await updateContactInfo(contactData);
+      revalidatePath('/admin/contact');
+      revalidatePath('/');
+      return { success: true };
+    } catch (err: any) {
+      return { success: false, error: String(err?.message || err) };
+    }
 }

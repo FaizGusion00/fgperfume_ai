@@ -40,22 +40,26 @@ export function LoginForm() {
 
   function onSubmit(data: LoginFormValues) {
     startTransition(async () => {
-      const result = await loginAction(data.password);
-
-      if (result.success) {
-        if (typeof window !== 'undefined') {
-          sessionStorage.setItem('isAdminAuthenticated', 'true');
-          // Dispatch a storage event to notify other tabs/components
-          window.dispatchEvent(new Event('storage'));
-        }
-        toast({ title: 'Login successful!' });
-        router.push('/admin');
-      } else {
-        toast({
-          variant: 'destructive',
-          title: 'Login Failed',
-          description: result.error || 'Please check your credentials.',
+      try {
+        const res = await fetch('/api/admin/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: data.password }),
         });
+        const json = await res.json();
+        if (json.success) {
+          // Set a client-side flag for immediate UI changes; real auth is cookie-based.
+          if (typeof window !== 'undefined') {
+            sessionStorage.setItem('isAdminAuthenticated', 'true');
+            window.dispatchEvent(new Event('storage'));
+          }
+          toast({ title: 'Login successful!' });
+          router.push('/admin');
+        } else {
+          toast({ variant: 'destructive', title: 'Login Failed', description: json.error || 'Please check your credentials.' });
+        }
+      } catch (err: any) {
+        toast({ variant: 'destructive', title: 'Login Failed', description: String(err?.message || err) });
       }
     });
   }

@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import { useRouter } from 'next/navigation';
 import type { BrandInfo } from '@/lib/mock-data';
 import { updateBrandInfoAction } from '@/app/admin/actions';
 import { useTransition } from 'react';
@@ -32,6 +33,7 @@ interface BrandFormProps {
 export function BrandForm({ initialData }: BrandFormProps) {
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
+  const router = useRouter();
 
   const form = useForm<BrandInfoFormValues>({
     resolver: zodResolver(brandInfoSchema),
@@ -48,6 +50,7 @@ export function BrandForm({ initialData }: BrandFormProps) {
 
       if (result.success) {
         toast({ title: 'Brand information updated successfully.' });
+        router.refresh();
       } else {
         toast({
           variant: 'destructive',

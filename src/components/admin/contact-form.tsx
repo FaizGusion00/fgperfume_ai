@@ -15,6 +15,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import { useRouter } from 'next/navigation';
 import type { ContactInfo } from '@/lib/mock-data';
 import { updateContactInfoAction } from '@/app/admin/actions';
 import { useTransition } from 'react';
@@ -38,6 +39,7 @@ interface ContactFormProps {
 export function ContactForm({ initialData }: ContactFormProps) {
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
+  const router = useRouter();
 
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactInfoSchema),
@@ -65,6 +67,7 @@ export function ContactForm({ initialData }: ContactFormProps) {
 
       if (result.success) {
         toast({ title: 'Contact information updated successfully.' });
+        router.refresh();
       } else {
         console.error(result.error);
         toast({

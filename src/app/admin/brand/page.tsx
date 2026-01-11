@@ -1,4 +1,4 @@
-import { getBrandInfo } from "@/services/firebase/store";
+import { getBrandInfo } from "@/services/mysql/store";
 import { BrandForm } from "@/components/admin/brand-form";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 

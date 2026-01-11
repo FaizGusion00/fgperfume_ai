@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useTransition } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   Table,
   TableBody,
@@ -49,7 +50,8 @@ export default function PerfumeTable({ initialPerfumes }: PerfumeTableProps) {
   const handleFormSuccess = () => {
     setFormOpen(false);
     setSelectedPerfume(undefined);
-    // Data will be revalidated by the server action, so we don't need to manually refetch.
+    // Refresh the route so server components re-run and show updated data.
+    router.refresh();
   };
 
   const openAddDialog = () => {
@@ -64,8 +66,13 @@ export default function PerfumeTable({ initialPerfumes }: PerfumeTableProps) {
 
   const handleDelete = (id: string) => {
     startTransition(async () => {
-        await deletePerfumeAction(id);
-        toast({ title: "Perfume deleted successfully." });
+        const res = await deletePerfumeAction(id);
+        if (res && res.success) {
+          toast({ title: "Perfume deleted successfully." });
+          router.refresh();
+        } else {
+          toast({ variant: 'destructive', title: 'Delete failed', description: res?.error || 'Unable to delete perfume.' });
+        }
     });
   }
 

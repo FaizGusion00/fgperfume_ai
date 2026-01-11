@@ -1,4 +1,4 @@
-import { getPerfumes } from "@/services/firebase/store";
+import { getPerfumes } from "@/services/mysql/store";
 import PerfumeTable from "@/components/admin/perfume-table";
 
 export default async function PerfumesPage() {

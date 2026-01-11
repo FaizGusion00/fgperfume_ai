@@ -1,5 +1,5 @@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { getPerfumes, getLoggedQueries } from "@/services/firebase/store";
+import { getPerfumes, getLoggedQueries } from "@/services/mysql/store";
 import { DollarSign, MessageSquare, Package, Library } from "lucide-react";
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";

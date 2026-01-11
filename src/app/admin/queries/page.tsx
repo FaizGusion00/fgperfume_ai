@@ -1,4 +1,4 @@
-import { getLoggedQueries } from "@/services/firebase/store";
+import { getLoggedQueries } from "@/services/mysql/store";
 import QueryLogTable from "@/components/admin/query-log-table";
 
 export default async function QueriesPage() {

@@ -9,7 +9,7 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
-import { saveUserQuery } from '@/services/firebase/store';
+import { saveUserQuery } from '@/services/mysql/store';
 
 const LogUserQueryInputSchema = z.object({
   query: z.string().describe('The user query to log.'),

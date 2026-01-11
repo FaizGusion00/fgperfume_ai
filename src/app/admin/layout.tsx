@@ -5,9 +5,18 @@ import { usePathname, useRouter } from 'next/navigation';
 import Header from "@/components/header";
 import AdminSidebar from "@/components/admin/admin-sidebar";
 
-const isAuthenticatedClient = () => {
+const isAuthenticatedClient = async () => {
   if (typeof window === 'undefined') return false;
-  return sessionStorage.getItem('isAdminAuthenticated') === 'true';
+  // Quick client-side check: sessionStorage (instant)
+  if (sessionStorage.getItem('isAdminAuthenticated') === 'true') return true;
+  // Fallback: fetch server-side cookie check
+  try {
+    const res = await fetch('/api/admin/me');
+    const json = await res.json();
+    return !!json.authenticated;
+  } catch (err) {
+    return false;
+  }
 };
 
 export default function AdminLayout({
@@ -17,11 +26,11 @@ export default function AdminLayout({
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const [isAuthenticated, setIsAuthenticated] = useState(isAuthenticatedClient());
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    const handleStorageChange = () => {
-      setIsAuthenticated(isAuthenticatedClient());
+    const handleStorageChange = async () => {
+      setIsAuthenticated(await isAuthenticatedClient());
     };
 
     // This listens for changes in session storage that happen in other tabs,
@@ -30,12 +39,13 @@ export default function AdminLayout({
     window.addEventListener('storage', handleStorageChange);
     
     // Check auth status on initial load and path changes.
-    const authStatus = isAuthenticatedClient();
-    setIsAuthenticated(authStatus);
-
-    if (pathname !== '/admin/login' && !authStatus) {
-      router.replace('/admin/login');
-    }
+    (async () => {
+      const authStatus = await isAuthenticatedClient();
+      setIsAuthenticated(authStatus);
+      if (pathname !== '/admin/login' && !authStatus) {
+        router.replace('/admin/login');
+      }
+    })();
     
     return () => {
         window.removeEventListener('storage', handleStorageChange);

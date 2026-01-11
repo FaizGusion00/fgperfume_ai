@@ -14,6 +14,7 @@ import { useToast } from '@/hooks/use-toast';
 export default function AIChatConcierge() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
+  const [language, setLanguage] = useState<'en'|'ms'>('en');
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
   const scrollViewportRef = useRef<HTMLDivElement>(null);
@@ -52,7 +53,7 @@ export default function AIChatConcierge() {
 
     startTransition(async () => {
       try {
-        const aiResponse = await askAI(newMessages, input);
+        const aiResponse = await askAI(newMessages, input, language);
         const newAIMessage: ChatMessage = {
           id: (Date.now() + 1).toString(),
           role: 'assistant',
@@ -149,10 +150,21 @@ export default function AIChatConcierge() {
             disabled={isPending}
             autoComplete="off"
           />
-          <Button type="submit" size="icon" disabled={isPending || !input.trim()} variant="outline" className="border-accent text-accent hover:bg-accent hover:text-accent-foreground">
+          <div className="flex items-center gap-2">
+            <select
+              value={language}
+              onChange={(e) => setLanguage(e.target.value as 'en'|'ms')}
+              className="px-2 py-1 border rounded bg-secondary text-secondary-foreground"
+              disabled={isPending}
+            >
+              <option value="en">English</option>
+              <option value="ms">Malay</option>
+            </select>
+            <Button type="submit" size="icon" disabled={isPending || !input.trim()} variant="outline" className="border-accent text-accent hover:bg-accent hover:text-accent-foreground">
             <Send className="h-4 w-4" />
             <span className="sr-only">Send</span>
-          </Button>
+            </Button>
+          </div>
         </form>
       </CardFooter>
     </Card>
