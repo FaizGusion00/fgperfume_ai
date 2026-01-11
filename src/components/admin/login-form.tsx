@@ -45,6 +45,8 @@ export function LoginForm() {
       if (result.success) {
         if (typeof window !== 'undefined') {
           sessionStorage.setItem('isAdminAuthenticated', 'true');
+          // Dispatch a storage event to notify other tabs/components
+          window.dispatchEvent(new Event('storage'));
         }
         toast({ title: 'Login successful!' });
         router.push('/admin');
