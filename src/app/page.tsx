@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
-      <main className="flex-grow flex flex-col items-center justify-center p-4 md:p-8 relative">
+      <main className="flex-grow grid grid-rows-[auto,1fr] p-4 md:p-8 relative">
         <div className="absolute inset-0 w-full h-full z-0">
           {heroImage && (
             <Image
@@ -25,7 +25,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent"></div>
         </div>
 
-        <div className="w-full max-w-4xl mx-auto flex flex-col items-center text-center relative z-10 -mt-20">
+        <div className="w-full max-w-4xl mx-auto flex flex-col items-center text-center relative z-10">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold font-headline tracking-tight text-foreground">
             FGPerfume
           </h1>
@@ -34,7 +34,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="w-full h-[32rem] md:h-[36rem] lg:h-[40rem] max-w-3xl mt-8 z-10">
+        <div className="w-full max-w-3xl mx-auto mt-8 z-10 flex flex-col min-h-0">
           <AIChatConcierge />
         </div>
       </main>

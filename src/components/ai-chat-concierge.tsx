@@ -5,7 +5,7 @@ import { askAI, type ChatMessage } from '@/app/actions';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { Send, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
@@ -16,7 +16,7 @@ export default function AIChatConcierge() {
   const [input, setInput] = useState('');
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const scrollViewportRef = useRef<HTMLDivElement>(null);
 
   const initialMessage: ChatMessage = {
     id: '0',
@@ -29,9 +29,9 @@ export default function AIChatConcierge() {
   }, []);
 
   useEffect(() => {
-    if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTo({
-        top: scrollAreaRef.current.scrollHeight,
+    if (scrollViewportRef.current) {
+        scrollViewportRef.current.scrollTo({
+        top: scrollViewportRef.current.scrollHeight,
         behavior: 'smooth',
       });
     }
@@ -86,8 +86,8 @@ export default function AIChatConcierge() {
           AI Concierge
         </CardTitle>
       </CardHeader>
-      <CardContent className="flex-grow p-0">
-        <ScrollArea className="h-full" ref={scrollAreaRef}>
+      <CardContent className="flex-grow p-0 flex flex-col min-h-0">
+        <ScrollArea className="flex-grow" viewportRef={scrollViewportRef}>
           <div className="p-4 md:p-6 space-y-6">
             {messages.map((message) => (
               <div
@@ -129,6 +129,7 @@ export default function AIChatConcierge() {
               </div>
             )}
           </div>
+          <ScrollBar />
         </ScrollArea>
       </CardContent>
       <CardFooter className="p-4 border-t border-border/50">
