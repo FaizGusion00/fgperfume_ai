@@ -22,21 +22,25 @@ export default function AdminLayout({
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
+    // ComponentDidMount: Check auth status once on the client.
     setIsAuthenticated(isAuthenticatedClient());
   }, []);
 
   useLayoutEffect(() => {
+    // Guard routes on client side.
     if (pathname !== '/admin/login' && !isAuthenticatedClient()) {
       router.replace('/admin/login');
     }
   }, [pathname, router]);
 
+
   if (pathname === '/admin/login') {
     return <>{children}</>;
   }
   
+  // To prevent content flash on initial load before client-side auth check completes
   if (!isAuthenticated) {
-      return null; // Or a loading spinner, but null is fine to prevent content flash
+      return null;
   }
 
   return (

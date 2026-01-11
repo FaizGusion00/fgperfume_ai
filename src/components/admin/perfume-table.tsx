@@ -41,7 +41,6 @@ interface PerfumeTableProps {
 }
 
 export default function PerfumeTable({ initialPerfumes }: PerfumeTableProps) {
-  const [perfumes, setPerfumes] = useState(initialPerfumes);
   const [isFormOpen, setFormOpen] = useState(false);
   const [selectedPerfume, setSelectedPerfume] = useState<Perfume | undefined>(undefined);
   const [isPending, startTransition] = useTransition();
@@ -84,7 +83,7 @@ export default function PerfumeTable({ initialPerfumes }: PerfumeTableProps) {
             <DialogHeader>
               <DialogTitle>{selectedPerfume ? 'Edit' : 'Add'} Perfume</DialogTitle>
             </DialogHeader>
-            <div className="max-h-[70vh] overflow-y-auto p-1">
+            <div className="max-h-[70vh] overflow-y-auto p-1 pr-2">
                 <PerfumeForm perfume={selectedPerfume} onSuccess={handleFormSuccess} />
             </div>
           </DialogContent>
