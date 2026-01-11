@@ -22,15 +22,15 @@ export default function Header() {
         <div className="flex flex-1 items-center justify-end space-x-2">
             <nav className="flex items-center gap-2">
                 <Link href="/" passHref>
-                    <Button variant={!isAdminPage ? "secondary" : "ghost"} size="sm" className="hidden sm:flex items-center gap-2">
+                    <Button variant={!isAdminPage ? "secondary" : "ghost"} size="sm" className="flex items-center gap-2">
                         <User className="h-4 w-4" />
-                        User View
+                        <span className="hidden sm:inline">User View</span>
                     </Button>
                 </Link>
                  <Link href="/admin" passHref>
-                    <Button variant={isAdminPage ? "secondary" : "ghost"} size="sm" className="hidden sm:flex items-center gap-2">
+                    <Button variant={isAdminPage ? "secondary" : "ghost"} size="sm" className="flex items-center gap-2">
                        <Shield className="h-4 w-4" />
-                        Admin Panel
+                       <span className="hidden sm:inline">Admin Panel</span>
                     </Button>
                 </Link>
                 <ThemeToggle />
