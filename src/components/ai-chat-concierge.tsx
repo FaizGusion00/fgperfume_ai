@@ -81,8 +81,8 @@ export default function AIChatConcierge() {
   return (
     <Card className="w-full h-full flex flex-col shadow-2xl rounded-lg border-accent/20 bg-card/80 backdrop-blur-sm">
       <CardHeader className="border-b border-border/50">
-        <CardTitle className="flex items-center gap-2 font-headline text-xl">
-          <Sparkles className="h-5 w-5 text-accent" />
+        <CardTitle className="flex items-center gap-2 font-headline text-xl text-amber-400">
+          <Sparkles className="h-5 w-5 text-amber-400" />
           AI Concierge
         </CardTitle>
       </CardHeader>
@@ -100,15 +100,15 @@ export default function AIChatConcierge() {
                 {message.role === 'assistant' && (
                   <Avatar className="w-8 h-8">
                     <AvatarFallback className="bg-primary text-primary-foreground">
-                      <Sparkles className="h-4 w-4" />
+                      <Sparkles className="h-4 w-4 text-amber-300" />
                     </AvatarFallback>
                   </Avatar>
                 )}
                 <div
                   className={cn(
-                    'max-w-[80%] rounded-lg px-4 py-2 text-sm whitespace-pre-wrap',
+                    'max-w-[80%] rounded-lg px-4 py-2 text-sm whitespace-pre-wrap shadow-md',
                     message.role === 'user'
-                      ? 'bg-primary text-primary-foreground'
+                      ? 'bg-amber-500 text-black'
                       : 'bg-secondary text-secondary-foreground'
                   )}
                 >
@@ -120,10 +120,10 @@ export default function AIChatConcierge() {
               <div className="flex items-start gap-3 justify-start">
                 <Avatar className="w-8 h-8">
                    <AvatarFallback className="bg-primary text-primary-foreground">
-                      <Sparkles className="h-4 w-4" />
+                      <Sparkles className="h-4 w-4 text-amber-300" />
                     </AvatarFallback>
                 </Avatar>
-                <div className="bg-secondary rounded-lg">
+                <div className="bg-secondary rounded-lg shadow-md">
                     <TypingIndicator />
                 </div>
               </div>
@@ -141,7 +141,7 @@ export default function AIChatConcierge() {
             disabled={isPending}
             autoComplete="off"
           />
-          <Button type="submit" size="icon" disabled={isPending || !input.trim()}>
+          <Button type="submit" size="icon" disabled={isPending || !input.trim()} variant="outline" className="border-amber-400 text-amber-400 hover:bg-amber-400 hover:text-black">
             <Send className="h-4 w-4" />
             <span className="sr-only">Send</span>
           </Button>

@@ -5,6 +5,14 @@ import { addPerfume, updatePerfume, deletePerfume, updateBrandInfo } from '@/ser
 import { z } from 'zod';
 import type { BrandInfo, Perfume } from '@/lib/mock-data';
 
+// --- Auth Action ---
+export async function loginAction(password: string) {
+  if (password === 'fgperfumeuniversalempire00@') {
+    return { success: true };
+  }
+  return { success: false, error: 'Invalid password' };
+}
+
 // --- Perfume Actions ---
 
 const perfumeSchema = z.object({

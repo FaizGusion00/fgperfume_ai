@@ -17,7 +17,7 @@ export default function Home() {
               alt={heroImage.description}
               fill
               style={{ objectFit: 'cover' }}
-              className="opacity-20"
+              className="opacity-10"
               priority
               data-ai-hint={heroImage.imageHint}
             />
@@ -30,7 +30,7 @@ export default function Home() {
             FGPerfume
           </h1>
           <p className="mt-4 text-lg md:text-xl text-foreground/80 max-w-2xl">
-            Discover the essence of luxury. Our AI Concierge is at your service to unveil the stories behind our exclusive fragrances.
+            Discover the essence of affordable luxury. Our AI Concierge is at your service to unveil the stories behind our exclusive fragrances.
           </p>
         </div>
 

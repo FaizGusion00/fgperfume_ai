@@ -25,15 +25,15 @@ export interface UserQueryLog {
 }
 
 let brandInfo: BrandInfo = {
-  story: "Founded on the principle of capturing ephemeral moments, FGPerfume crafts scents that are both timeless and modern. Our philosophy is one of minimalist luxury, where the quality of the ingredients and the artistry of the composition speak for themselves.",
-  companyInfo: "FGPerfume is a privately owned luxury fragrance house based in Paris, France. All our products are developed and manufactured in-house to ensure the highest quality."
+  story: "Founded on the principle of capturing ephemeral moments, FGPerfume crafts high-quality, affordable luxury scents that are both timeless and modern. Our research and development began in 2023, with the company officially registered in 2025.",
+  companyInfo: "FGPerfume is a proudly Malaysian luxury fragrance house based in Selangor. All our products are developed and manufactured with a focus on quality to ensure an exquisite experience."
 };
 
 let perfumes: Perfume[] = [
   {
     id: '1',
     name: 'Noir Essence',
-    inspiration: 'A walk through a forest at midnight.',
+    inspiration: 'A walk through a Malaysian rainforest at midnight.',
     topNotes: ['Bergamot', 'Pink Pepper'],
     middleNotes: ['Incense', 'Orris'],
     baseNotes: ['Vetiver', 'Patchouli', 'Vanilla'],
@@ -47,7 +47,7 @@ let perfumes: Perfume[] = [
   {
     id: '2',
     name: 'Solis Dream',
-    inspiration: 'The warmth of the first sunbeam on a summer morning.',
+    inspiration: 'The warmth of the first sunbeam over the Cameron Highlands.',
     topNotes: ['Mandarin', 'Lemon', 'Grapefruit'],
     middleNotes: ['Neroli', 'Jasmine'],
     baseNotes: ['Musk', 'Amber'],
@@ -61,7 +61,7 @@ let perfumes: Perfume[] = [
   {
     id: '3',
     name: 'Aqua Flora',
-    inspiration: 'A hidden coastal garden after a rain shower.',
+    inspiration: 'A hidden coastal garden in Langkawi after a rain shower.',
     topNotes: ['Sea Salt', 'Bergamot'],
     middleNotes: ['Lily of the Valley', 'Rose'],
     baseNotes: ['Cedarwood', 'Ambrette'],
