@@ -1,3 +1,28 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-perfume",
+      "description": "A luxurious perfume bottle arrangement",
+      "imageUrl": "https://images.unsplash.com/photo-1739190940453-20900e9d18fb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxsdXh1cnklMjBwZXJmdW1lfGVufDB8fHx8MTc2ODA3NjAzMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "luxury perfume"
+    },
+    {
+      "id": "perfume-card-1",
+      "description": "Abstract scent visualization for Noir Essence",
+      "imageUrl": "https://images.unsplash.com/photo-1643716991841-91851103e69f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8ZGFyayUyMGZyYWdyYW5jZXxlbnwwfHx8fDE3NjgxMzYxNDF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "dark fragrance"
+    },
+    {
+      "id": "perfume-card-2",
+      "description": "Bright scent visualization for Solis Dream",
+      "imageUrl": "https://images.unsplash.com/photo-1717106678334-bd2047ab250b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjaXRydXMlMjBzdW58ZW58MHx8fHwxNzY4MTM2MTQxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "citrus sun"
+    },
+    {
+      "id": "perfume-card-3",
+      "description": "Marine scent visualization for Aqua Flora",
+      "imageUrl": "https://images.unsplash.com/photo-1596392353760-f80f92d9b018?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxvY2VhbiUyMGZsb3dlcnxlbnwwfHx8fDE3NjgxMzYxNDF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "ocean flower"
+    }
+  ]
 }
