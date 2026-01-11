@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Package, Library, MessageSquare } from 'lucide-react';
+import { Home, Package, Library, MessageSquare, Phone } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { FGPerfumeLogo } from '@/components/icons';
 import { Separator } from '@/components/ui/separator';
@@ -11,6 +11,7 @@ const navItems = [
   { href: '/admin', label: 'Dashboard', icon: Home },
   { href: '/admin/perfumes', label: 'Perfumes', icon: Package },
   { href: '/admin/brand', label: 'Brand', icon: Library },
+  { href: '/admin/contact', label: 'Contact', icon: Phone },
   { href: '/admin/queries', label: 'User Queries', icon: MessageSquare },
 ];
 

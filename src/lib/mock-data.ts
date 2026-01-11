@@ -18,6 +18,17 @@ export interface BrandInfo {
   companyInfo: string;
 }
 
+export interface ContactInfo {
+  email: string;
+  phone: string;
+  address: string;
+  socialMedia: {
+    facebook?: string;
+    instagram?: string;
+    twitter?: string;
+  };
+}
+
 export interface UserQueryLog {
   id: string;
   query: string;
@@ -27,6 +38,17 @@ export interface UserQueryLog {
 let brandInfo: BrandInfo = {
   story: "Founded on the principle of capturing ephemeral moments, FGPerfume crafts high-quality, affordable luxury scents that are both timeless and modern. Our research and development began in 2023, with the company officially registered in 2025.",
   companyInfo: "FGPerfume is a proudly Malaysian luxury fragrance house based in Selangor. All our products are developed and manufactured with a focus on quality to ensure an exquisite experience."
+};
+
+let contactInfo: ContactInfo = {
+  email: "care@fgperfume.com",
+  phone: "+60 12-345 6789",
+  address: "123 Jalan Wangi, 47500 Subang Jaya, Selangor, Malaysia",
+  socialMedia: {
+    facebook: "https://facebook.com/fgperfume",
+    instagram: "https://instagram.com/fgperfume",
+    twitter: "https://twitter.com/fgperfume"
+  }
 };
 
 let perfumes: Perfume[] = [
@@ -81,6 +103,7 @@ let userQueries: UserQueryLog[] = [
 
 export const mockDb = {
   brandInfo,
+  contactInfo,
   perfumes,
   userQueries
 };

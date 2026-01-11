@@ -1,6 +1,6 @@
 'use server';
 
-import { mockDb, type Perfume, type BrandInfo } from '@/lib/mock-data';
+import { mockDb, type Perfume, type BrandInfo, type ContactInfo } from '@/lib/mock-data';
 
 // This is a mock store that simulates Firestore.
 // In a real application, you would replace this with actual Firebase SDK calls.
@@ -8,6 +8,10 @@ import { mockDb, type Perfume, type BrandInfo } from '@/lib/mock-data';
 // GETTERS
 export const getBrandInfo = async (): Promise<BrandInfo> => {
   return Promise.resolve(mockDb.brandInfo);
+};
+
+export const getContactInfo = async (): Promise<ContactInfo> => {
+  return Promise.resolve(mockDb.contactInfo);
 };
 
 export const getPerfumes = async (includeHidden = false): Promise<Perfume[]> => {
@@ -24,8 +28,16 @@ export const getPerfumeById = async (id: string): Promise<Perfume | undefined> =
 export const getKnowledgeBaseAsString = async (): Promise<string> => {
   const brandInfo = await getBrandInfo();
   const perfumes = await getPerfumes();
+  const contactInfo = await getContactInfo();
 
-  let knowledgeBase = `Brand Story: ${brandInfo.story}\nCompany Information: ${brandInfo.companyInfo}\n\nAvailable Perfumes:\n`;
+  let knowledgeBase = `Brand Story: ${brandInfo.story}\nCompany Information: ${brandInfo.companyInfo}\n\n`;
+
+  knowledgeBase += `Contact Information:\n- Email: ${contactInfo.email}\n- Phone: ${contactInfo.phone}\n- Address: ${contactInfo.address}\n`;
+  if (contactInfo.socialMedia.facebook) knowledgeBase += `- Facebook: ${contactInfo.socialMedia.facebook}\n`;
+  if (contactInfo.socialMedia.instagram) knowledgeBase += `- Instagram: ${contactInfo.socialMedia.instagram}\n`;
+  if (contactInfo.socialMedia.twitter) knowledgeBase += `- Twitter: ${contactInfo.socialMedia.twitter}\n`;
+  
+  knowledgeBase += `\nAvailable Perfumes:\n`;
   
   perfumes.forEach(p => {
     knowledgeBase += `
@@ -58,6 +70,11 @@ export const saveUserQuery = async (query: string, timestamp: number): Promise<v
 export const updateBrandInfo = async (data: BrandInfo): Promise<BrandInfo> => {
   mockDb.brandInfo = { ...mockDb.brandInfo, ...data };
   return Promise.resolve(mockDb.brandInfo);
+};
+
+export const updateContactInfo = async (data: ContactInfo): Promise<ContactInfo> => {
+  mockDb.contactInfo = { ...mockDb.contactInfo, ...data };
+  return Promise.resolve(mockDb.contactInfo);
 };
 
 export const addPerfume = async (perfumeData: Omit<Perfume, 'id'>): Promise<Perfume> => {

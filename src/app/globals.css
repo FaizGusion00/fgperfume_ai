@@ -12,84 +12,85 @@ h1, h2, h3, h4, h5, h6 {
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 60 25% 91%; /* Soft Beige */
+    --foreground: 0 0% 0%; /* Black */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 60 25% 91%;
+    --card-foreground: 0 0% 0%;
  
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 60 25% 91%;
+    --popover-foreground: 0 0% 0%;
  
-    --primary: 210 40% 98%;
-    --primary-foreground: 215.3 25% 26.7%;
+    --primary: 0 0% 8%;
+    --primary-foreground: 60 25% 91%;
  
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 60 10% 85%;
+    --secondary-foreground: 0 0% 8%;
  
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 60 10% 85%;
+    --muted-foreground: 0 0% 40%;
  
-    --accent: 45 93% 47%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 51 100% 50%; /* Gold */
+    --accent-foreground: 0 0% 8%;
  
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 215 27.9% 36.3%;
+    --border: 0 0% 85%;
+    --input: 0 0% 90%;
+    --ring: 51 100% 50%;
  
     --radius: 0.5rem;
 
     /* Custom Sidebar Vars for Admin */
     --sidebar-background: 0 0% 5%;
     --sidebar-foreground: 0 0% 95%;
-    --sidebar-primary: 45 93% 47%;
+    --sidebar-primary: 51 100% 50%;
     --sidebar-primary-foreground: 0 0% 8%;
     --sidebar-accent: 0 0% 15%;
     --sidebar-accent-foreground: 0 0% 98%;
     --sidebar-border: 0 0% 15%;
-    --sidebar-ring: 45 93% 47%;
+    --sidebar-ring: 51 100% 50%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
  
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
  
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
  
-    --primary: 215.3 25% 26.7%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
  
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
  
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215.4 16.3% 56.9%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
  
-    --accent: 45 93% 47%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 51 100% 50%;
+    --accent-foreground: 240 5.9% 10%;
  
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
  
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 215 27.9% 66.3%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 51 100% 50%;
 
+    /* Custom Sidebar Vars for Admin */
     --sidebar-background: 0 0% 5%;
     --sidebar-foreground: 0 0% 95%;
-    --sidebar-primary: 45 93% 47%;
+    --sidebar-primary: 51 100% 50%;
     --sidebar-primary-foreground: 0 0% 8%;
     --sidebar-accent: 0 0% 15%;
     --sidebar-accent-foreground: 0 0% 98%;
     --sidebar-border: 0 0% 15%;
-    --sidebar-ring: 45 93% 47%;
+    --sidebar-ring: 51 100% 50%;
   }
 }
 
