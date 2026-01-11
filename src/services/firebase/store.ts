@@ -30,7 +30,7 @@ export const getKnowledgeBaseAsString = async (): Promise<string> => {
   const perfumes = await getPerfumes();
   const contactInfo = await getContactInfo();
 
-  let knowledgeBase = `Brand Story: ${brandInfo.story}\nCompany Information: ${brandInfo.companyInfo}\n\n`;
+  let knowledgeBase = `Brand Information:\n- Company: FG Universal Empire (SSM No.: 202503270156 (IP0614068-A))\n- Brand: FGPerfume\n- Founder & Developer: Faiz Nasir\n- Location: Selangor, Malaysia\n- History: Research and development started in 2023, with the company officially registered in 2025.\n- Philosophy: ${brandInfo.story}\n- About: ${brandInfo.companyInfo}\n\n`;
 
   knowledgeBase += `Contact Information:\n- Email: ${contactInfo.email}\n- Phone: ${contactInfo.phone}\n- Address: ${contactInfo.address}\n`;
   if (contactInfo.socialMedia.facebook) knowledgeBase += `- Facebook: ${contactInfo.socialMedia.facebook}\n`;

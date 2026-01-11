@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FGPerfumeLogo } from './icons';
+import { FGPAiLogo } from './icons';
 import { Button } from './ui/button';
 import { User, Shield } from 'lucide-react';
 import { ThemeToggle } from './theme-toggle';
@@ -16,7 +16,7 @@ export default function Header() {
       <div className="container flex h-14 max-w-screen-2xl items-center">
         <div className="mr-4 flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <FGPerfumeLogo className="h-8 w-auto text-foreground" />
+            <FGPAiLogo className="h-8 w-auto text-foreground" />
           </Link>
         </div>
         <div className="flex flex-1 items-center justify-end space-x-2">
