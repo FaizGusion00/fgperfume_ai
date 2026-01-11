@@ -20,9 +20,8 @@ export default function AdminSidebar() {
 
   return (
     <aside className="w-64 flex-shrink-0 border-r border-sidebar-border bg-sidebar-background p-4 hidden md:flex flex-col">
-      <div className="flex items-center gap-2 h-10 mb-4">
+      <div className="flex items-center justify-center gap-2 h-10 mb-4">
         <FGPerfumeLogo className="h-8 w-auto text-sidebar-foreground" />
-        <span className="font-headline text-lg text-sidebar-foreground">Admin Panel</span>
       </div>
       <Separator className="mb-4 bg-sidebar-border" />
       <nav className="flex flex-col space-y-2">
