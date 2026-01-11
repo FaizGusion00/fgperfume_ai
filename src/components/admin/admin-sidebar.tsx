@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Home, Package, Library, MessageSquare, Phone } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { FGPAiLogo } from '@/components/icons';
 import { Separator } from '@/components/ui/separator';
 
 const navItems = [
@@ -21,7 +20,7 @@ export default function AdminSidebar() {
   return (
     <aside className="w-64 flex-shrink-0 border-r border-sidebar-border bg-sidebar-background p-4 hidden md:flex flex-col">
        <div className="flex items-center justify-center h-10 mb-4">
-        <FGPAiLogo className="h-8 w-auto text-sidebar-foreground" />
+        {/* Logo is in the main header, so it's removed from here to avoid duplication */}
       </div>
       <Separator className="mb-4 bg-sidebar-border" />
       <nav className="flex flex-col space-y-2">

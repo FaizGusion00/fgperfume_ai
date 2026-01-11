@@ -1,12 +1,10 @@
 'use client';
 
-import { useLayoutEffect, useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import Header from "@/components/header";
 import AdminSidebar from "@/components/admin/admin-sidebar";
 
-// This is a simplified client-side check.
-// For production, a more robust authentication (e.g., JWT, sessions) would be recommended.
 const isAuthenticatedClient = () => {
   if (typeof window === 'undefined') return false;
   return sessionStorage.getItem('isAdminAuthenticated') === 'true';
@@ -19,18 +17,29 @@ export default function AdminLayout({
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(isAuthenticatedClient());
 
   useEffect(() => {
-    // ComponentDidMount: Check auth status once on the client.
-    setIsAuthenticated(isAuthenticatedClient());
-  }, []);
+    const handleStorageChange = () => {
+      setIsAuthenticated(isAuthenticatedClient());
+    };
 
-  useLayoutEffect(() => {
-    // Guard routes on client side.
-    if (pathname !== '/admin/login' && !isAuthenticatedClient()) {
+    // This listens for changes in session storage that happen in other tabs,
+    // but we can also use it to react to our own changes.
+    // A more direct way is to just set state, but this is a robust way to sync.
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Check auth status on initial load and path changes.
+    const authStatus = isAuthenticatedClient();
+    setIsAuthenticated(authStatus);
+
+    if (pathname !== '/admin/login' && !authStatus) {
       router.replace('/admin/login');
     }
+    
+    return () => {
+        window.removeEventListener('storage', handleStorageChange);
+    };
   }, [pathname, router]);
 
 
@@ -38,9 +47,8 @@ export default function AdminLayout({
     return <>{children}</>;
   }
   
-  // To prevent content flash on initial load before client-side auth check completes
   if (!isAuthenticated) {
-      return null;
+      return null; // or a loading spinner
   }
 
   return (
