@@ -46,6 +46,7 @@ export default function PerfumeTable({ initialPerfumes }: PerfumeTableProps) {
   const [selectedPerfume, setSelectedPerfume] = useState<Perfume | undefined>(undefined);
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
+  const router = useRouter();
 
   const handleFormSuccess = () => {
     setFormOpen(false);

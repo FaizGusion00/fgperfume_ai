@@ -24,6 +24,32 @@ async function withDb<T>(fn: () => Promise<T>, fallback: () => T): Promise<T> {
   }
 }
 
+function parseJsonArrayField(val: any): string[] {
+  if (!val && val !== 0) return [];
+  // Already an array
+  if (Array.isArray(val)) return val;
+  // If it's an object (MySQL may return JSON as object), try to coerce
+  if (typeof val === 'object') {
+    try {
+      return JSON.parse(JSON.stringify(val));
+    } catch (_) {
+      return [];
+    }
+  }
+  // If it's a string, try JSON.parse first, otherwise split on commas
+  if (typeof val === 'string') {
+    try {
+      const parsed = JSON.parse(val);
+      if (Array.isArray(parsed)) return parsed;
+    } catch (_) {
+      // not valid JSON, fall through to comma-split
+    }
+    // Fallback: treat as comma-separated list
+    return val.split(',').map(s => s.trim()).filter(Boolean);
+  }
+  return [];
+}
+
 // GETTERS
 export const getBrandInfo = async (): Promise<BrandInfo> => {
   return withDb(async () => {
@@ -60,9 +86,9 @@ export const getPerfumes = async (includeHidden = false): Promise<Perfume[]> => 
       id: r.id,
       name: r.name,
       inspiration: r.inspiration,
-      topNotes: JSON.parse(r.topNotes || '[]'),
-      middleNotes: JSON.parse(r.middleNotes || '[]'),
-      baseNotes: JSON.parse(r.baseNotes || '[]'),
+      topNotes: parseJsonArrayField(r.topNotes),
+      middleNotes: parseJsonArrayField(r.middleNotes),
+      baseNotes: parseJsonArrayField(r.baseNotes),
       price: Number(r.price),
       availability: r.availability,
       isVisible: !!r.isVisible,
@@ -83,9 +109,9 @@ export const getPerfumeById = async (id: string): Promise<Perfume | undefined> =
       id: r.id,
       name: r.name,
       inspiration: r.inspiration,
-      topNotes: JSON.parse(r.topNotes || '[]'),
-      middleNotes: JSON.parse(r.middleNotes || '[]'),
-      baseNotes: JSON.parse(r.baseNotes || '[]'),
+      topNotes: parseJsonArrayField(r.topNotes),
+      middleNotes: parseJsonArrayField(r.middleNotes),
+      baseNotes: parseJsonArrayField(r.baseNotes),
       price: Number(r.price),
       availability: r.availability,
       isVisible: !!r.isVisible,
@@ -101,17 +127,31 @@ export const getKnowledgeBaseAsString = async (): Promise<string> => {
   const perfumes = await getPerfumes();
   const contactInfo = await getContactInfo();
 
-  let knowledgeBase = `Brand Information:\n- Company: FG Universal Empire (SSM No.: 202503270156 (IP0614068-A))\n- Brand: FGPerfume\n- Founder & Developer: Faiz Nasir\n- Location: Selangor, Malaysia\n- History: Research and development started in 2023, with the company officially registered in 2025.\n- Philosophy: ${brandInfo.story}\n- About: ${brandInfo.companyInfo}\n\n`;
+  // Build knowledge base purely from stored data; avoid embedding hardcoded company details.
+  let knowledgeBase = `Brand Information:\n`;
+  if (brandInfo.story) knowledgeBase += `- Philosophy: ${brandInfo.story}\n`;
+  if (brandInfo.companyInfo) knowledgeBase += `- About: ${brandInfo.companyInfo}\n`;
 
-  knowledgeBase += `Contact Information:\n- Email: ${contactInfo.email}\n- Phone: ${contactInfo.phone}\n- Address: ${contactInfo.address}\n`;
+  knowledgeBase += `\nContact Information:\n`;
+  if (contactInfo.email) knowledgeBase += `- Email: ${contactInfo.email}\n`;
+  if (contactInfo.phone) knowledgeBase += `- Phone: ${contactInfo.phone}\n`;
+  if (contactInfo.address) knowledgeBase += `- Address: ${contactInfo.address}\n`;
   if (contactInfo.socialMedia.facebook) knowledgeBase += `- Facebook: ${contactInfo.socialMedia.facebook}\n`;
   if (contactInfo.socialMedia.instagram) knowledgeBase += `- Instagram: ${contactInfo.socialMedia.instagram}\n`;
   if (contactInfo.socialMedia.twitter) knowledgeBase += `- Twitter: ${contactInfo.socialMedia.twitter}\n`;
-  
+
   knowledgeBase += `\nAvailable Perfumes:\n`;
-  
   perfumes.forEach(p => {
-    knowledgeBase += `\n- Name: ${p.name}\n- Inspiration: ${p.inspiration}\n- Character: ${p.character}\n- Top Notes: ${p.topNotes.join(', ')}\n- Middle Notes: ${p.middleNotes.join(', ')}\n- Base Notes: ${p.baseNotes.join(', ')}\n- Price: $${p.price}\n- Availability: ${p.availability}\n- Best Usage: ${p.usage}\n- Longevity: ${p.longevity}\n`;
+    knowledgeBase += `\n- Name: ${p.name}\n`;
+    if (p.inspiration) knowledgeBase += `- Inspiration: ${p.inspiration}\n`;
+    if (p.character) knowledgeBase += `- Character: ${p.character}\n`;
+    if (p.topNotes?.length) knowledgeBase += `- Top Notes: ${p.topNotes.join(', ')}\n`;
+    if (p.middleNotes?.length) knowledgeBase += `- Middle Notes: ${p.middleNotes.join(', ')}\n`;
+    if (p.baseNotes?.length) knowledgeBase += `- Base Notes: ${p.baseNotes.join(', ')}\n`;
+    if (p.price != null) knowledgeBase += `- Price: $${p.price}\n`;
+    if (p.availability) knowledgeBase += `- Availability: ${p.availability}\n`;
+    if (p.usage) knowledgeBase += `- Best Usage: ${p.usage}\n`;
+    if (p.longevity) knowledgeBase += `- Longevity: ${p.longevity}\n`;
   });
 
   // Add a machine-readable JSON block at the end that contains canonical data.

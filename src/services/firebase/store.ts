@@ -30,28 +30,31 @@ export const getKnowledgeBaseAsString = async (): Promise<string> => {
   const perfumes = await getPerfumes();
   const contactInfo = await getContactInfo();
 
-  let knowledgeBase = `Brand Information:\n- Company: FG Universal Empire (SSM No.: 202503270156 (IP0614068-A))\n- Brand: FGPerfume\n- Founder & Developer: Faiz Nasir\n- Location: Selangor, Malaysia\n- History: Research and development started in 2023, with the company officially registered in 2025.\n- Philosophy: ${brandInfo.story}\n- About: ${brandInfo.companyInfo}\n\n`;
+  // Build knowledge base purely from stored data; avoid embedding hardcoded company details.
+  let knowledgeBase = `Brand Information:\n`;
+  if (brandInfo.story) knowledgeBase += `- Philosophy: ${brandInfo.story}\n`;
+  if (brandInfo.companyInfo) knowledgeBase += `- About: ${brandInfo.companyInfo}\n`;
 
-  knowledgeBase += `Contact Information:\n- Email: ${contactInfo.email}\n- Phone: ${contactInfo.phone}\n- Address: ${contactInfo.address}\n`;
+  knowledgeBase += `\nContact Information:\n`;
+  if (contactInfo.email) knowledgeBase += `- Email: ${contactInfo.email}\n`;
+  if (contactInfo.phone) knowledgeBase += `- Phone: ${contactInfo.phone}\n`;
+  if (contactInfo.address) knowledgeBase += `- Address: ${contactInfo.address}\n`;
   if (contactInfo.socialMedia.facebook) knowledgeBase += `- Facebook: ${contactInfo.socialMedia.facebook}\n`;
   if (contactInfo.socialMedia.instagram) knowledgeBase += `- Instagram: ${contactInfo.socialMedia.instagram}\n`;
   if (contactInfo.socialMedia.twitter) knowledgeBase += `- Twitter: ${contactInfo.socialMedia.twitter}\n`;
-  
+
   knowledgeBase += `\nAvailable Perfumes:\n`;
-  
   perfumes.forEach(p => {
-    knowledgeBase += `
-- Name: ${p.name}
-- Inspiration: ${p.inspiration}
-- Character: ${p.character}
-- Top Notes: ${p.topNotes.join(', ')}
-- Middle Notes: ${p.middleNotes.join(', ')}
-- Base Notes: ${p.baseNotes.join(', ')}
-- Price: $${p.price}
-- Availability: ${p.availability}
-- Best Usage: ${p.usage}
-- Longevity: ${p.longevity}
-\n`;
+    knowledgeBase += `\n- Name: ${p.name}\n`;
+    if (p.inspiration) knowledgeBase += `- Inspiration: ${p.inspiration}\n`;
+    if (p.character) knowledgeBase += `- Character: ${p.character}\n`;
+    if (p.topNotes?.length) knowledgeBase += `- Top Notes: ${p.topNotes.join(', ')}\n`;
+    if (p.middleNotes?.length) knowledgeBase += `- Middle Notes: ${p.middleNotes.join(', ')}\n`;
+    if (p.baseNotes?.length) knowledgeBase += `- Base Notes: ${p.baseNotes.join(', ')}\n`;
+    if (p.price != null) knowledgeBase += `- Price: $${p.price}\n`;
+    if (p.availability) knowledgeBase += `- Availability: ${p.availability}\n`;
+    if (p.usage) knowledgeBase += `- Best Usage: ${p.usage}\n`;
+    if (p.longevity) knowledgeBase += `- Longevity: ${p.longevity}\n`;
   });
 
   return knowledgeBase;

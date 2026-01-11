@@ -12,8 +12,7 @@ export default function AppFooter() {
   return (
     <footer className="py-4 px-4 md:px-8 bg-secondary/30 text-muted-foreground text-xs text-center">
       <div className="container mx-auto">
-        <p>&copy; {year || new Date().getFullYear()} FG Universal Empire (SSM No.: 202503270156 (IP0614068-A)). All Rights Reserved.</p>
-        <p>Developed by Faiz Nasir.</p>
+        <p>&copy; {year || new Date().getFullYear()} All Rights Reserved.</p>
       </div>
     </footer>
   );

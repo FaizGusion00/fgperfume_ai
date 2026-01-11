@@ -22,7 +22,7 @@ export default function AIChatConcierge() {
   const initialMessage: ChatMessage = {
     id: '0',
     role: 'assistant',
-    content: 'Welcome to FGPerfume. How may I assist you today?'
+    content: 'Welcome. How may I assist you today?'
   };
 
   useEffect(() => {
