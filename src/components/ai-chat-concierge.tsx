@@ -19,17 +19,6 @@ export default function AIChatConcierge() {
   const { toast } = useToast();
   const scrollViewportRef = useRef<HTMLDivElement>(null);
 
-  const pendingCopy =
-    language === 'ms'
-      ? {
-          title: 'Sedang menjana jawapan…',
-          body: 'Maaf jika respon agak perlahan kerana pelayan sedang sibuk. Sila tunggu sebentar—saya akan jawab dengan sebaiknya.'
-        }
-      : {
-          title: 'Generating a response…',
-          body: 'Apologies if this takes a moment—our server is currently under high load. Please wait briefly; I’ll respond properly.'
-        };
-
   const initialMessage: ChatMessage = {
     id: '0',
     role: 'assistant',
@@ -83,20 +72,10 @@ export default function AIChatConcierge() {
   };
 
   const TypingIndicator = () => (
-    <div className="p-3">
-      <div className="flex items-center space-x-1">
-        <span className="h-2 w-2 animate-pulse rounded-full bg-accent" style={{ animationDelay: '0s' }}></span>
-        <span className="h-2 w-2 animate-pulse rounded-full bg-accent" style={{ animationDelay: '0.2s' }}></span>
-        <span className="h-2 w-2 animate-pulse rounded-full bg-accent" style={{ animationDelay: '0.4s' }}></span>
-      </div>
-      <div className="mt-2">
-        <div className="text-sm font-medium text-secondary-foreground">
-          {pendingCopy.title}
-        </div>
-        <div className="mt-0.5 text-xs text-secondary-foreground/80">
-          {pendingCopy.body}
-        </div>
-      </div>
+    <div className="flex items-center space-x-1 p-2">
+      <span className="h-2 w-2 animate-pulse rounded-full bg-accent" style={{ animationDelay: '0s' }}></span>
+      <span className="h-2 w-2 animate-pulse rounded-full bg-accent" style={{ animationDelay: '0.2s' }}></span>
+      <span className="h-2 w-2 animate-pulse rounded-full bg-accent" style={{ animationDelay: '0.4s' }}></span>
     </div>
   );
 
