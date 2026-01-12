@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect, useTransition } from 'react';
+import { useState, useRef, useEffect, useTransition, type FormEvent } from 'react';
 import { askAI, type ChatMessage } from '@/app/actions';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -38,7 +38,7 @@ export default function AIChatConcierge() {
     }
   }, [messages]);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!input.trim() || isPending) return;
 
@@ -59,7 +59,7 @@ export default function AIChatConcierge() {
           role: 'assistant',
           content: aiResponse,
         };
-        setMessages((prev) => [...prev, newAIMessage]);
+        setMessages((prev: ChatMessage[]) => [...prev, newAIMessage]);
       } catch (error) {
         toast({
           variant: "destructive",
@@ -72,10 +72,15 @@ export default function AIChatConcierge() {
   };
 
   const TypingIndicator = () => (
-    <div className="flex items-center space-x-1 p-2">
-      <span className="h-2 w-2 animate-pulse rounded-full bg-accent" style={{ animationDelay: '0s' }}></span>
-      <span className="h-2 w-2 animate-pulse rounded-full bg-accent" style={{ animationDelay: '0.2s' }}></span>
-      <span className="h-2 w-2 animate-pulse rounded-full bg-accent" style={{ animationDelay: '0.4s' }}></span>
+    <div className="p-3">
+      <div className="flex items-center space-x-1">
+        <span className="h-2 w-2 animate-pulse rounded-full bg-accent" style={{ animationDelay: '0s' }}></span>
+        <span className="h-2 w-2 animate-pulse rounded-full bg-accent" style={{ animationDelay: '0.2s' }}></span>
+        <span className="h-2 w-2 animate-pulse rounded-full bg-accent" style={{ animationDelay: '0.4s' }}></span>
+      </div>
+      <div className="mt-2 text-xs text-muted-foreground">
+        Thanks for your patience — our AI may respond a little slower during high traffic.
+      </div>
     </div>
   );
 
@@ -90,7 +95,7 @@ export default function AIChatConcierge() {
       <CardContent className="flex-grow p-0 flex flex-col min-h-0">
         <ScrollArea className="flex-grow" viewportRef={scrollViewportRef}>
           <div className="p-4 md:p-6 space-y-4">
-            {messages.map((message) => (
+            {messages.map((message: ChatMessage) => (
               <div
                 key={message.id}
                 className={cn(

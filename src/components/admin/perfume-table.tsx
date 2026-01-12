@@ -33,7 +33,7 @@ import {
 import { PlusCircle, Edit, Trash2, CheckCircle, XCircle } from 'lucide-react';
 import { PerfumeForm } from './perfume-form';
 import type { Perfume } from '@/lib/mock-data';
-import { cn } from '@/lib/utils';
+import { cn, formatMYR } from '@/lib/utils';
 import { deletePerfumeAction } from '@/app/admin/actions';
 import { useToast } from '@/hooks/use-toast';
 
@@ -112,7 +112,7 @@ export default function PerfumeTable({ initialPerfumes }: PerfumeTableProps) {
             {initialPerfumes.map((perfume) => (
               <TableRow key={perfume.id}>
                 <TableCell className="font-medium">{perfume.name}</TableCell>
-                <TableCell>${perfume.price}</TableCell>
+                <TableCell>{formatMYR(perfume.price)}</TableCell>
                 <TableCell>
                   <Badge variant={perfume.availability === 'In Stock' ? 'default' : 'destructive'} className={cn(perfume.availability === 'In Stock' ? "bg-green-600" : "bg-red-600")}>
                     {perfume.availability}

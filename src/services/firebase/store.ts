@@ -30,6 +30,15 @@ export const getKnowledgeBaseAsString = async (): Promise<string> => {
   const perfumes = await getPerfumes();
   const contactInfo = await getContactInfo();
 
+  const formatMYR = (amount: number) =>
+    new Intl.NumberFormat('en-MY', {
+      style: 'currency',
+      currency: 'MYR',
+      currencyDisplay: 'code',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 2,
+    }).format(Number.isFinite(amount) ? amount : 0);
+
   // Build knowledge base purely from stored data; avoid embedding hardcoded company details.
   let knowledgeBase = `Brand Information:\n`;
   if (brandInfo.story) knowledgeBase += `- Philosophy: ${brandInfo.story}\n`;
@@ -51,7 +60,7 @@ export const getKnowledgeBaseAsString = async (): Promise<string> => {
     if (p.topNotes?.length) knowledgeBase += `- Top Notes: ${p.topNotes.join(', ')}\n`;
     if (p.middleNotes?.length) knowledgeBase += `- Middle Notes: ${p.middleNotes.join(', ')}\n`;
     if (p.baseNotes?.length) knowledgeBase += `- Base Notes: ${p.baseNotes.join(', ')}\n`;
-    if (p.price != null) knowledgeBase += `- Price: $${p.price}\n`;
+    if (p.price != null) knowledgeBase += `- Price: ${formatMYR(p.price)}\n`;
     if (p.availability) knowledgeBase += `- Availability: ${p.availability}\n`;
     if (p.usage) knowledgeBase += `- Best Usage: ${p.usage}\n`;
     if (p.longevity) knowledgeBase += `- Longevity: ${p.longevity}\n`;

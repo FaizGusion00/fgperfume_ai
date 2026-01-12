@@ -3,6 +3,7 @@ import { getPerfumes, getLoggedQueries } from "@/services/mysql/store";
 import { DollarSign, MessageSquare, Package, Library } from "lucide-react";
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";
+import { formatMYR } from "@/lib/utils";
 
 export default async function AdminDashboard() {
   const [perfumes, queries] = await Promise.all([
@@ -69,7 +70,7 @@ export default async function AdminDashboard() {
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">${highestPrice}</div>
+            <div className="text-2xl font-bold">{formatMYR(highestPrice)}</div>
             <p className="text-xs text-muted-foreground">
               Peak price point in collection
             </p>
